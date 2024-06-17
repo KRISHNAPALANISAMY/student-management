@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CPS</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            background-image: url('../public/images/myImage.jpg');
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-position: center center; /* Center the image */
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #343a40;
+        }
+        table {
+            margin-top: 20px;
+        }
+        .form-section {
+            margin-top: 40px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            margin-top: 10px;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Add a white background with some transparency */
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            const phoneInput = document.getElementById("phone");
+            const passwordInput = document.getElementById("password");
+            const form = document.querySelector("form");
+            const idInput = document.getElementById("id");
+    
+            
+            if (idInput.value === "") {
+                idInput.style.display = "none";
+            }
+    
+            form.addEventListener("submit", function (event) {
+                if (nameInput.value.trim() === "" ||
+                    emailInput.value.trim() === "" ||
+                    phoneInput.value.trim() === "" ||
+                    passwordInput.value.trim() === "") {
+                    event.preventDefault();
+                    alert("Please fill in all fields.");
+                }
+            });
+        });
+    </script>
+    <div class="navbar">
+        <!-- Your navbar content -->
+    </div>
+
+    <div class="container">
+        <h2>Data from Database</h2>
+        <table>
+            <thead>
+                <tr>
+                
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th> <!-- Add a column for actions -->
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(item => { %>
+                    <tr>
+                     
+                        <td><%= item.name %></td>
+                        <td><%= item.phone %></td>
+                        <td><%= item.email %></td>
+                        <td><%= item.password %></td>
+                        <td>
+                            <!-- Add buttons for update and delete -->
+                            <form action="/update" method="POST">
+                                <input type="hidden" name="id" value="<%= item.id %>">
+                                <button type="submit">Update</button>
+                            </form>
+                            <form action="/delete" method="POST">
+                                <input type="hidden" name="id" value="<%= item.id %>">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <!-- Form for adding new data -->
+        <h2>Add New Data</h2>
+        <form action="/add" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+</html>

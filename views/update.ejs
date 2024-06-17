@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1em;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            margin-top: 1em;
+            display: block;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 0.5em;
+            margin-top: 0.5em;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            width: 100%;
+            padding: 0.7em;
+            margin-top: 1em;
+            border: none;
+            border-radius: 3px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        a {
+            display: block;
+            margin-top: 1em;
+            text-align: center;
+            color: #5cb85c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <% if (error) { %>
+        <h1>Error</h1>
+        <p><%= error %></p>
+        <a href="/students">Back to Students</a>
+    <% } else if (!student) { %>
+        <h1>Find Student to Update</h1>
+        <form action="/students/update" method="POST">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" required><br>
+            <button type="submit">Find Student</button>
+        </form>
+    <% } else { %>
+        <h1>Update Student</h1>
+        <form action="/students/update/save" method="POST">
+            <input type="hidden" name="id" value="<%= student.id %>">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= student.name %>" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= student.email %>" required><br>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" value="<%= student.phone %>" required><br>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" value="<%= student.password %>" required><br>
+            <button type="submit">Update</button>
+        </form>
+    <% } %>
+</body>
+</html>
